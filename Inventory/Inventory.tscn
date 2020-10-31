@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sushi.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Noodle.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Noodle" parent="." instance=ExtResource( 2 )]
+position = Vector2( 695.787, 270.288 )
+amount = 20
+max_stack = 10
+stackable = true
+Item_name = "Noodle"
+
+[node name="Sushi" parent="." instance=ExtResource( 1 )]
+position = Vector2( 213.584, 263.539 )
+amount = 56
+max_stack = 20
+stackable = true
+Item_name = "Sushi"
