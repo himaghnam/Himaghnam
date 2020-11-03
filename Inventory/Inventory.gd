@@ -19,13 +19,14 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 			for i in range(Inventory.size()):
 				if(Inventory[i].item == item):
 					Inventory[i]["amount"] += amount
-					print(Inventory)
+#					print(Inventory)
 					return
 		dict["item"] = item
 		dict["amount"] = amount
 		dict["Item_Details"] = Item_Details
 		Inventory.append(dict)
-		print(Inventory)
+		emit_signal("Item_added")
+#		print(Inventory)
 		return
 		
 	if(Inventory.size() == 0 and amount <= max_item_stack):
@@ -33,12 +34,14 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 		dict["amount"] = amount
 		dict["Item_Details"] = Item_Details
 		Inventory.append(dict)
-		print(Inventory)
+		emit_signal("Item_added")
+#		print(Inventory)
 		return
 		
 		
 	elif(Inventory.size() == 0 and amount > max_item_stack):
 # warning-ignore:unused_variable
+# warning-ignore:integer_division
 		for i in range(amount/max_item_stack):
 			dict["item"] = item
 			dict["amount"] = max_item_stack
@@ -49,9 +52,10 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 			var dict_next:Dictionary = {"item" : null , "amount" : 0, "Item_Details":null } 
 			dict_next["item"] = item
 			dict_next["amount"] = (amount % max_item_stack )
-			dict["Item_Details"] = Item_Details
+			dict_next["Item_Details"] = Item_Details
 			Inventory.append(dict_next)
-		print(Inventory)
+		emit_signal("Item_added")
+#		print(Inventory)
 		return
 	
 	
@@ -60,7 +64,8 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 		if(Inventory[i].item == item):
 			if ((Inventory[i].amount + amount) <= max_item_stack ):
 				Inventory[i]["amount"] += amount
-				print(Inventory)
+				emit_signal("Item_added")
+#				print(Inventory)
 				return
 			
 			if((Inventory[i]["amount"] + amount) > max_item_stack and Inventory[i]["amount"] != max_item_stack):
@@ -78,10 +83,11 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 					var dict_next:Dictionary = {"item" : null , "amount" : 0 ,"Item_Details": null} 
 					dict_next["item"] = item
 					dict_next["amount"] = ((Inventory[i]["amount"] + amount) % max_item_stack )
-					dict["Item_Details"] = Item_Details
+					dict_next["Item_Details"] = Item_Details
 					Inventory.append(dict_next)
 				Inventory.remove(i)
-				print(Inventory)
+				emit_signal("Item_added")
+#				print(Inventory)
 				return
 	
 	#New Item
@@ -91,11 +97,13 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 		dict["amount"] = amount
 		dict["Item_Details"] = Item_Details
 		Inventory.append(dict)
-		print(Inventory)
+		emit_signal("Item_added")
+#		print(Inventory)
 		return
 		
 	elif( amount > max_item_stack):
 # warning-ignore:unused_variable
+# warning-ignore:integer_division
 		for i in range(amount/max_item_stack):
 			dict["item"] = item
 			dict["amount"] = max_item_stack
@@ -106,9 +114,10 @@ func _Add_Item(item:PackedScene, amount:int, Item_Details:Dictionary):
 			var dict_next:Dictionary = {"item" : null , "amount" : 0,"Item_Details":null } 
 			dict_next["item"] = item
 			dict_next["amount"] = (amount % max_item_stack)
-			dict["Item_Details"] = Item_Details
+			dict_next["Item_Details"] = Item_Details
 			Inventory.append(dict_next)
-		print(Inventory)
+		emit_signal("Item_added")
+#		print(Inventory)
 		return
 	
 func _input(event: InputEvent) -> void:

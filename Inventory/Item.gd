@@ -5,6 +5,7 @@ export var amount:int
 export var max_stack:int 
 export var stackable:bool 
 export var Item_name:String 
+export var Icon:Resource
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -22,9 +23,9 @@ func _on_Item_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> 
 		Inventory_global.max_item_stack = max_stack
 		Inventory_global.Item_stackable = stackable
 		var Item:PackedScene = load("res://"+Item_name+".tscn")
-		var Item_Details:Dictionary = {"stackable":stackable,"name":Item_name,"max_stack":max_stack}
+		var Item_Details:Dictionary = {"stackable":stackable,"name":Item_name,"max_stack":max_stack,"icon":Icon}
 		Inventory_global._Add_Item(Item,amount,Item_Details)
-		Inventory_global.emit_signal("Item_added")
+		
 		queue_free()
 	pass # Replace with function body.
 
